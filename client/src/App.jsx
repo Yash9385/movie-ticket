@@ -17,6 +17,7 @@ import ListBookings from './pages/admin/ListBookings'
 import { useAppContext } from './context/AppContext'
 import { SignIn } from '@clerk/clerk-react'
 import Loading from './components/Loading'
+import Theaters from './pages/Theaters'
 
 const App = () => {
 
@@ -35,8 +36,10 @@ const App = () => {
         <Route path='/movies/:id/:date' element={<SeatLayout/>} />
         <Route path='/my-bookings' element={<MyBookings/>} />
         <Route path='/loading/:nextUrl' element={<Loading/>} />
+        <Route path='/theaters' element={<Theaters/>} />
 
         <Route path='/favorite' element={<Favorite/>} />
+        <Route path='/theaters' element={<div className="min-h-screen flex items-center justify-center text-3xl">🎬 Theaters Page</div>} />
         <Route path='/admin/*' element={user ? <Layout/> : (
           <div className='min-h-screen flex justify-center items-center'>
             <SignIn fallbackRedirectUrl={'/admin'} />
