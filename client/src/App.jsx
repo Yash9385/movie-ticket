@@ -22,13 +22,13 @@ import Theaters from './pages/Theaters'
 const App = () => {
 
   const isAdminRoute = useLocation().pathname.startsWith('/admin')
-
   const { user } = useAppContext()
 
   return (
     <>
       <Toaster />
       {!isAdminRoute && <Navbar/>}
+
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/movies' element={<Movies/>} />
@@ -36,10 +36,14 @@ const App = () => {
         <Route path='/movies/:id/:date' element={<SeatLayout/>} />
         <Route path='/my-bookings' element={<MyBookings/>} />
         <Route path='/loading/:nextUrl' element={<Loading/>} />
+
+        {/* Theaters */}
         <Route path='/theaters' element={<Theaters/>} />
+        <Route path='/theater/:id' element={<div className="text-white p-10">Shows Page Coming Soon 🎬</div>} />
 
         <Route path='/favorite' element={<Favorite/>} />
-        <Route path='/theaters' element={<div className="min-h-screen flex items-center justify-center text-3xl">🎬 Theaters Page</div>} />
+
+        {/* Admin */}
         <Route path='/admin/*' element={user ? <Layout/> : (
           <div className='min-h-screen flex justify-center items-center'>
             <SignIn fallbackRedirectUrl={'/admin'} />
@@ -51,7 +55,8 @@ const App = () => {
           <Route path="list-bookings" element={<ListBookings/>}/>
         </Route>
       </Routes>
-       {!isAdminRoute && <Footer />}
+
+      {!isAdminRoute && <Footer />}
     </>
   )
 }

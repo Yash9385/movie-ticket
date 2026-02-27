@@ -12,7 +12,8 @@ const FeaturedSection = () => {
     const scrollRef = useRef(null)
 
     const scrollRight = () => {
-      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' })
+      scrollRef.current?.scrollBy({ left: 300, behavior: 'smooth' })
+      // 🔥 safe optional chaining added (prevent null crash)
     }
 
   return (
@@ -21,7 +22,10 @@ const FeaturedSection = () => {
       <div className='relative flex items-center justify-between pt-20 pb-10'>
         <BlurCircle top='0' right='-80px'/>
         <p className='text-gray-300 font-medium text-lg'>Now Showing</p>
-        <button onClick={()=> navigate('/movies')} className='group flex items-center gap-2 text-sm text-gray-300 cursor-pointer '>
+
+        <button 
+          onClick={()=> navigate('/movies')} 
+          className='group flex items-center gap-2 text-sm text-gray-300 cursor-pointer '>
             View All 
             <ArrowRight className='group-hover:translate-x-0.5 transition w-4.5 h-4.5'/>
         </button>
@@ -31,12 +35,17 @@ const FeaturedSection = () => {
       <div className='relative'>
         
         {/* Movies Row */}
-        <div ref={scrollRef} className='flex gap-6 overflow-x-auto pb-4 mt-8 scrollbar-hide'>
+        <div 
+          ref={scrollRef} 
+          className='flex gap-6 overflow-x-auto pb-4 mt-8 scrollbar-hide'>
+          
           {shows.slice(0, 8).map((show)=>(
-              <div key={show._id} className='min-w-[260px]'>
+              <div key={show._id || show.id} className='min-w-[260px]'>
+                {/* 🔥 universal key fix */}
                 <MovieCard movie={show}/>
               </div>
           ))}
+
         </div>
 
         {/* Right Arrow Button */}
@@ -49,8 +58,9 @@ const FeaturedSection = () => {
       </div>
 
       <div className='flex justify-center mt-20'>
-        <button onClick={()=> {navigate('/movies'); scrollTo(0,0)}}
-         className='px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-md font-medium cursor-pointer'>
+        <button 
+          onClick={()=> {navigate('/movies'); window.scrollTo(0,0)}}
+          className='px-10 py-3 text-sm bg-primary hover:bg-primary-dull transition rounded-md font-medium cursor-pointer'>
          Show more
         </button>
       </div>
