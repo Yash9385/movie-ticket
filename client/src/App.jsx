@@ -41,6 +41,9 @@ const App = () => {
         <Route path='/theaters' element={<Theaters/>} />
         <Route path='/theater/:id' element={<div className="text-white p-10">Shows Page Coming Soon 🎬</div>} />
 
+        {/* 🔥 FIX ADDED HERE */}
+        <Route path='/releases' element={<Movies/>} />
+
         <Route path='/favorite' element={<Favorite/>} />
 
         {/* Admin */}
